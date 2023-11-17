@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { Link } from '@/components/link'
+import { HomeIcon, Library, Search } from 'lucide-react'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,7 +20,191 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="bg-black h-full">{children}</div>
+        <div className="bg-black h-full">
+          <div className="p-2 grid grid-cols-layout grid-rows-layout gap-2 h-full">
+            <section className="flex flex-col gap-2 h-full">
+              {/* NavHeader */}
+              <nav className="bg-spotifyGray700 rounded-lg px-6 py-4 flex flex-col gap-1">
+                <Link icon={HomeIcon} text="Home" />
+                <Link icon={Search} text="Search" />
+              </nav>
+              <div className="bg-spotifyGray700 rounded-lg px-6 py-4 h-full">
+                <Link icon={Library} text="Sua biblioteca" />
+                {/* LISTA DE PLAYLIST */}
+                <ul className="max-h-playlistSection overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded">
+                  {/* PLAYLIST ITEM */}
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1 overflow-hidden">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                  <li className="cursor-pointer p-2 flex items-center gap-3 bg-spotifyGray700 hover:bg-spotifyGray600 rounded">
+                    <Image
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/60/12/93/601293f5-b70a-7252-417c-0e7fc1838a1b/mza_10577955395500101280.jpg/1200x1200bb.jpg"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="rounded"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="truncate text-white">Bocadinhas</span>
+                      <span className="text-xs truncate text-spotifyGray300">
+                        Playlist • Criador da playlist
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <main>{children}</main>
+            <footer className="h-[72px] w-full col-span-2"></footer>
+          </div>
+        </div>
       </body>
     </html>
   )
