@@ -22,7 +22,7 @@ const config: Config = {
         layout: '1fr 72px',
       },
       maxHeight: {
-        playlistSection: 'calc(100vh - 284px)',
+        playlistSection: 'calc(100vh - 290px)',
       },
     },
   },

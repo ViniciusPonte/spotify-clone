@@ -4,6 +4,7 @@ import './globals.css'
 import { Link } from '@/components/link'
 import { HomeIcon, Library, Search } from 'lucide-react'
 import Image from 'next/image'
+import { Slider } from '@/components/slider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,11 +25,11 @@ export default function RootLayout({
           <div className="p-2 grid grid-cols-layout grid-rows-layout gap-2 h-full">
             <section className="flex flex-col gap-2 h-full">
               {/* NavHeader */}
-              <nav className="bg-spotifyGray700 rounded-lg px-6 py-4 flex flex-col gap-1">
+              <nav className="bg-spotifyGray700 rounded-lg px-1 py-4 flex flex-col gap-1">
                 <Link icon={HomeIcon} text="Home" />
                 <Link icon={Search} text="Search" />
               </nav>
-              <div className="bg-spotifyGray700 rounded-lg px-6 py-4 h-full">
+              <div className="bg-spotifyGray700 rounded-lg px-1 py-4 h-full">
                 <Link icon={Library} text="Sua biblioteca" />
                 {/* LISTA DE PLAYLIST */}
                 <ul className="max-h-playlistSection overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded">
@@ -202,7 +203,31 @@ export default function RootLayout({
               </div>
             </section>
             <main>{children}</main>
-            <footer className="h-[72px] w-full col-span-2"></footer>
+            <footer className="h-[72px] w-full col-span-2 flex items-center justify-between px-3">
+              <div className="flex items-center gap-3">
+                <Image
+                  src="https://upload.wikimedia.org/wikipedia/pt/0/08/Justin_Bieber_-_Justice.png"
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="rounded"
+                />
+                <div className="flex flex-col gap-1">
+                  <span className="text-white text-sm">Anyone</span>
+                  <span className="text-xs text-spotifyGray300">
+                    Justin Bieber
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <Slider />
+              </div>
+
+              <div>
+                <Slider variant="sm" />
+              </div>
+            </footer>
           </div>
         </div>
       </body>

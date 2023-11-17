@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slider": "^1.1.2",
     "lucide-react": "^0.292.0",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
-    "tailwind-scrollbar": "^3.0.5"
+    "tailwind-scrollbar": "^3.0.5",
+    "tailwind-variants": "^0.1.18"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
