@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { NavHeader } from '@/components/nav-header'
-import { PlaylistList } from '@/components/playlist-list'
-import { Footer } from '@/components/footer'
+import { NavHeader } from '@/components/layout/nav-header'
+import { Sidebar } from '@/components/layout/sidebar'
+import { Footer } from '@/components/layout/footer'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,9 +24,9 @@ export default function RootLayout({
           <div className="p-2 grid grid-cols-layout grid-rows-layout gap-2 h-full">
             <section className="flex flex-col gap-2 h-full">
               <NavHeader />
-              <PlaylistList />
+              <Sidebar />
             </section>
-            <main>{children}</main>
+            <main className="h-full">{children}</main>
             <Footer />
           </div>
         </div>

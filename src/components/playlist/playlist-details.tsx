@@ -15,7 +15,7 @@ export function PlaylistDetails() {
         <span className="text-[6rem] leading-[96px] font-bold">
           Músicas Curtidas
         </span>
-        <div className="flex items-center gap-1 mt-8">
+        <div className="flex items-center gap-1 mt-8  text-sm">
           <Image
             src="https://github.com/ViniciusPonte.png"
             alt=""

@@ -1,11 +1,13 @@
-import { Header } from '@/components/header'
-import { PlaylistDetails } from '@/components/playlist-details'
+import { Header } from '@/components/layout/header'
+import { PlaylistDetails } from '@/components/playlist/playlist-details'
+import { SongList } from '@/components/song/song-list'
 
 export default function Home() {
   return (
-    <div className="h-full w-full rounded-lg bg-gradient-to-t from-spotifyGray700 via-spotifyGray700 to-purple-600 p-6">
+    <div className="h-full w-full rounded-lg bg-gradient-to-b from-purple-600 from-0% via-spotifyGray700 via-30% to-spotifyGray700 bg-local p-6 max-h-songsList overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded ">
       <Header />
       <PlaylistDetails />
+      <SongList />
     </div>
   )
 }

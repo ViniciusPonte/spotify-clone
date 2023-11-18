@@ -1,8 +1,8 @@
 import { Library } from 'lucide-react'
-import { Link } from './link'
-import { PlaylistItem } from './playlist-item'
+import { Link } from '../base/link'
+import { PlaylistItem } from '../playlist/playlist-item'
 
-export function PlaylistList() {
+export function Sidebar() {
   return (
     <div className="bg-spotifyGray700 rounded-lg px-1 py-4 h-full">
       <Link icon={Library} text="Sua biblioteca" />

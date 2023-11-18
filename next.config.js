@@ -6,6 +6,7 @@ const nextConfig = {
       'upload.wikimedia.org',
       'github.com',
       'preview.redd.it',
+      's2.glbimg.com',
     ],
   },
 }

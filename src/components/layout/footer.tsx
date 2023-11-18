@@ -1,6 +1,6 @@
-import { ActiveSong } from './active-song'
-import { Controls } from './controls'
-import { Volume } from './volume'
+import { ActiveSong } from '../footer/active-song'
+import { Controls } from '../footer/controls'
+import { Volume } from '../footer/volume'
 
 export function Footer() {
   return (

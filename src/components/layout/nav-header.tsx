@@ -1,5 +1,5 @@
 import { HomeIcon, Search } from 'lucide-react'
-import { Link } from './link'
+import { Link } from '../base/link'
 
 export function NavHeader() {
   return (

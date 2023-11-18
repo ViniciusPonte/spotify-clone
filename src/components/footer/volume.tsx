@@ -1,5 +1,5 @@
 import { Volume2 } from 'lucide-react'
-import { Slider } from './slider'
+import { Slider } from '../base/slider'
 
 export function Volume() {
   return (
