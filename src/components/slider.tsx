@@ -4,12 +4,12 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const slider = tv({
-  base: ['relative flex items-center select-none touch-none h-5'],
+  base: ['relative flex items-center select-none touch-none h-5 group'],
 
   variants: {
     variant: {
-      sm: 'w-[150px]',
-      md: 'w-[500px]',
+      sm: 'w-28',
+      md: 'w-100',
     },
   },
 
@@ -28,11 +28,11 @@ export function Slider({ variant }: SliderProps) {
       max={100}
       step={1}
     >
-      <SliderPrimitive.Track className="grow relative rounded-full h-[3px] bg-spotifyGray600">
-        <SliderPrimitive.Range className="absolute bg-white rounded-full h-full" />
+      <SliderPrimitive.Track className="grow relative rounded-full h-[4px] bg-spotifyGray500">
+        <SliderPrimitive.Range className="absolute bg-white rounded-full h-full group-hover:bg-spotifyGreen" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb
-        className="block w-5 h-5 bg-white shadow rounded-xl"
+        className="none w-[11px] h-[11px] bg-white shadow rounded-xl group-hover:block outline-none"
         aria-label="Volume"
       />
     </SliderPrimitive.Root>
