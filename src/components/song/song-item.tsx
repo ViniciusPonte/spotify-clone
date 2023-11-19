@@ -2,20 +2,58 @@
 import { Play } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
+import dayjs from 'dayjs'
 
-export function SongItem() {
+interface SongItemProps {
+  image: string
+  title: string
+  artists: string[]
+  album: string
+  addedAt: string
+  duration: number
+  index: number
+}
+
+export function SongItem({
+  image,
+  title,
+  artists,
+  album,
+  addedAt,
+  duration,
+  index,
+}: SongItemProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   function handleIsHovered(state: boolean) {
     setIsHovered(state)
   }
 
-  function renderPlayOrIndex(index: number) {
+  function renderPlayOrIndex() {
     if (isHovered) {
       return <Play className="text-white w-3 h-3" fill="white" />
     }
 
     return <span>{index}</span>
+  }
+
+  function formatAddedAt() {
+    const date = dayjs(addedAt).format('DD/MM/YYYY')
+
+    return date
+  }
+
+  function formatDuration() {
+    const durationInSeconds = duration / 1000
+
+    const minutes = Math.floor(durationInSeconds / 60)
+    const seconds = Math.floor(durationInSeconds % 60)
+
+    console.log(duration, minutes, seconds)
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`
   }
 
   return (
@@ -24,33 +62,28 @@ export function SongItem() {
       onMouseOver={() => handleIsHovered(true)}
       onMouseLeave={() => handleIsHovered(false)}
     >
-      <td className="flex items-center">{renderPlayOrIndex(1)}</td>
+      <td className="flex items-center">{renderPlayOrIndex()}</td>
       <td className="flex items-center gap-4 truncate">
-        <Image
-          src="https://s2.glbimg.com/BhvoS48eOJDtKnxOGCIMHMcdKuM=/smart/e.glbimg.com/og/ed/f/original/2021/05/21/billie-eilish-happier-than-ever.jpeg"
-          width={40}
-          height={40}
-          alt=""
-        />
-        <div className="flex flex-col">
-          <span className="text-white text-base leading-[22px]">
-            happier than ever
+        <Image src={image} width={40} height={40} alt={album} />
+        <div className="flex flex-col truncate">
+          <span className="text-white text-base leading-[22px] truncate">
+            {title}
           </span>
           <div>
             <span className="text-sm leading-5 group-hover:text-white">
-              Billie Eilish
+              {artists.join(', ')}
             </span>
           </div>
         </div>
       </td>
       <td className="flex items-center truncate group-hover:text-white">
-        Starlight (Keep me afloat)
+        {album}
       </td>
       <td className="flex items-center group-hover:text-white">
-        26 de ago. de 2023
+        {formatAddedAt()}
       </td>
-      <td className="flex items-center justify-end group-hover:text-white">
-        3:40
+      <td className="flex items-center justify-center group-hover:text-white">
+        {formatDuration()}
       </td>
     </tr>
   )

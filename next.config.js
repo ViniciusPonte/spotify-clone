@@ -7,6 +7,9 @@ const nextConfig = {
       'github.com',
       'preview.redd.it',
       's2.glbimg.com',
+      'i.scdn.co',
+      'mosaic.scdn.co',
+      'image-cdn-ak.spotifycdn.com',
     ],
   },
 }

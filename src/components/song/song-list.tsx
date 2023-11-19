@@ -1,8 +1,23 @@
 import { Clock, Search } from 'lucide-react'
 import { SongItem } from './song-item'
 import { PlayIcon } from '../base/play-icon'
+import { api } from '@/services/api'
+import { ITracksResponse } from '@/interfaces/tracks'
 
-export function SongList() {
+export async function getTracks(): Promise<ITracksResponse> {
+  const tracksResponse = await api(
+    `/v1/playlists/37i9dQZF1DXdSjVZQzv2tl/tracks`,
+  )
+  const tracks = await tracksResponse.json()
+
+  return tracks
+}
+
+export async function SongList() {
+  const tracksResponse = await getTracks()
+
+  const tracks = tracksResponse.items
+
   return (
     <div className="flex flex-col w-full bg-opacity-30">
       <div className="flex justify-between items-center my-8">
@@ -17,32 +32,28 @@ export function SongList() {
           <tr className="px-4 grid grid-cols-songList gap-4 w-full">
             <td className="pt-3 pb-2 w-8 flex items-center">#</td>
             <td className="pt-3 pb-2 w-30 flex items-center">Título</td>
-            <td className="pt-3 pb-2 flex items-center">Albúm</td>
+            <td className="pt-3 pb-2 flex items-center">Album</td>
             <td className="pt-3 pb-2 flex items-center">Adicionada em</td>
-            <td className="pt-3 pb-2 flex justify-end items-center">
+            <td className="pt-3 pb-2 flex justify-center items-center">
               <Clock className="w-4 h-4 text-spotifyGray300" />
             </td>
           </tr>
         </thead>
         <tbody className="block pt-4">
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
-          <SongItem />
+          {tracks.map((track, index) => {
+            return (
+              <SongItem
+                key={track.track.id}
+                title={track.track.name}
+                addedAt={track.added_at}
+                album={track.track.album.name}
+                artists={track.track.artists.map((artist) => artist.name)}
+                duration={track.track.duration_ms}
+                image={track.track.album.images[0].url}
+                index={index + 1}
+              />
+            )
+          })}
         </tbody>
       </table>
     </div>
