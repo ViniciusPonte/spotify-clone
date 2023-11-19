@@ -13,6 +13,7 @@ const config: Config = {
       },
       textColor: {
         spotifyGray300: '#a7a7a7',
+        spotifyGreen: '#1db954',
       },
       backgroundColor: {
         spotifyGray500: '#808080',
@@ -38,6 +39,7 @@ const config: Config = {
       },
       gradientColorStops: {
         spotifyGray700: '#121212',
+        spotifyPurple: '#523b9c',
       },
     },
   },

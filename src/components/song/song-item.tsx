@@ -49,8 +49,6 @@ export function SongItem({
     const minutes = Math.floor(durationInSeconds / 60)
     const seconds = Math.floor(durationInSeconds % 60)
 
-    console.log(duration, minutes, seconds)
-
     return `${minutes.toString().padStart(2, '0')}:${seconds
       .toString()
       .padStart(2, '0')}`
@@ -69,8 +67,8 @@ export function SongItem({
           <span className="text-white text-base leading-[22px] truncate">
             {title}
           </span>
-          <div>
-            <span className="text-sm leading-5 group-hover:text-white">
+          <div className="truncate">
+            <span className="text-sm leading-5 group-hover:text-white truncate">
               {artists.join(', ')}
             </span>
           </div>
