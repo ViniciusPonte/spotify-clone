@@ -58,6 +58,7 @@ export function SongList() {
               tracks?.map((track, index) => {
                 return (
                   <SongItem
+                    id={track.track.id}
                     key={track.track.id}
                     title={track.track.name}
                     addedAt={track.added_at}

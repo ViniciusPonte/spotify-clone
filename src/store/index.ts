@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { IPlaylistDetailResponse, Item } from '@/interfaces/tracks'
+import { IPlaylistDetailResponse, Item, Track } from '@/interfaces/tracks'
 import { api } from '@/services/api'
 import { create } from 'zustand'
 import { IPlaylist } from '@/interfaces/playlist'
@@ -23,6 +23,19 @@ interface SpotifyState {
   isLoadingTracks: boolean
   onClickTrack: (trackId: string) => void
   loadTracks: () => Promise<void>
+
+  // playlist detail
+  track: Track | null
+  isLoadingTrackDetail: boolean
+  loadTrackDetail: () => Promise<void>
+
+  // player
+  isPlaying: boolean
+  duration: number
+  volume: number
+  onPlay: () => void
+  onPause: () => void
+  onChangeVolume: (volume: number) => void
 }
 
 export const useSpotifyStore = create<SpotifyState>((set, get) => {
@@ -74,7 +87,13 @@ export const useSpotifyStore = create<SpotifyState>((set, get) => {
     currentTrack: '',
     isLoadingTracks: true,
     onClickTrack: (trackId: string) => {
-      console.log(trackId)
+      set({
+        currentTrack: trackId,
+      })
+
+      const { loadTrackDetail } = get()
+
+      loadTrackDetail()
     },
     loadTracks: async () => {
       set({ isLoadingTracks: true })
@@ -84,6 +103,40 @@ export const useSpotifyStore = create<SpotifyState>((set, get) => {
       set({
         tracks: tracks.items,
         isLoadingTracks: false,
+      })
+    },
+
+    // playlist detail
+    track: null,
+    isLoadingTrackDetail: true,
+    loadTrackDetail: async () => {
+      set({ isLoadingTrackDetail: true })
+      const { currentTrack } = get()
+      const response = await api(`/v1/tracks/${currentTrack}`)
+      const track = await response.json()
+      set({
+        track,
+        isLoadingPlaylistDetail: false,
+      })
+    },
+
+    // player
+    isPlaying: false,
+    duration: 0,
+    volume: 0,
+    onPlay() {
+      set({
+        isPlaying: true,
+      })
+    },
+    onPause() {
+      set({
+        isPlaying: false,
+      })
+    },
+    onChangeVolume(volume: number) {
+      set({
+        volume,
       })
     },
   }

@@ -13,14 +13,14 @@ const config: Config = {
       },
       textColor: {
         spotifyGray300: '#a7a7a7',
-        spotifyGreen: '#1db954',
+        spotifyGreen: '#1ED760',
       },
       backgroundColor: {
         spotifyGray500: '#808080',
         spotifyGray550: '#3b3a3a',
         spotifyGray600: '#171717',
         spotifyGray700: '#121212',
-        spotifyGreen: '#1db954',
+        spotifyGreen: '#1ED760',
       },
       borderColor: {
         spotifyGray500: '#262626',
@@ -29,6 +29,7 @@ const config: Config = {
       gridTemplateColumns: {
         layout: 'minmax(280px, 420px) minmax(804px, 1fr)',
         songList: '16px 8fr 6fr 2fr 2fr',
+        footer: 'repeat(3, 1fr)',
       },
       gridTemplateRows: {
         layout: '1fr 72px',
