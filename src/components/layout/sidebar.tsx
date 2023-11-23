@@ -19,24 +19,29 @@ function SkeletonWrapper() {
 }
 
 export function Sidebar() {
-  const { loadPlaylists, playlists, isLoadingPlaylists } = useSpotifyStore(
-    (store) => {
+  const { loadPlaylists, playlists, isLoadingPlaylists, currentTrack } =
+    useSpotifyStore((store) => {
       return {
         loadPlaylists: store.loadPlaylists,
         playlists: store.playlists,
         isLoadingPlaylists: store.isLoadingPlaylists,
+        currentTrack: store.currentTrack,
       }
-    },
-  )
+    })
 
   useEffect(() => {
     loadPlaylists()
   }, [loadPlaylists])
 
+  const hasTrackActive = Boolean(currentTrack)
+
   return (
     <div className="bg-spotifyGray700 rounded-lg px-1 py-4 h-full">
       <Link icon={Library} text="Playlists em destaque" />
-      <ul className="max-h-playlistSection overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded">
+      <ul
+        data-hastrackactive={hasTrackActive}
+        className="max-h-playlistSection overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded data-[hastrackactive=false]:max-h-playlistSectionWithoutMusic"
+      >
         {playlists.length > 0 && !isLoadingPlaylists ? (
           playlists?.map((playlist) => {
             return (

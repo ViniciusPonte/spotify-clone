@@ -56,19 +56,23 @@ export function SongList() {
           <tbody className="block pt-4">
             {tracks?.length > 0 &&
               tracks?.map((track, index) => {
-                return (
-                  <SongItem
-                    id={track.track.id}
-                    key={track.track.id}
-                    title={track.track.name}
-                    addedAt={track.added_at}
-                    album={track.track.album.name}
-                    artists={track.track.artists.map((artist) => artist.name)}
-                    duration={track.track.duration_ms}
-                    image={track.track.album.images[0].url}
-                    index={index + 1}
-                  />
-                )
+                if (track) {
+                  return (
+                    <SongItem
+                      id={track.track.id}
+                      key={track.track.id}
+                      title={track.track.name}
+                      addedAt={track.added_at}
+                      album={track.track.album.name}
+                      artists={track.track.artists.map((artist) => artist.name)}
+                      duration={track.track.duration_ms}
+                      image={track.track.album.images[0].url}
+                      trackFile={track.track.preview_url}
+                      index={index + 1}
+                    />
+                  )
+                }
+                return null
               })}
           </tbody>
         </table>

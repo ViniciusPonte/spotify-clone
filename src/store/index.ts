@@ -7,7 +7,7 @@ import { IPlaylist } from '@/interfaces/playlist'
 interface SpotifyState {
   // playlists
   playlists: IPlaylist[]
-  currentPlaylist: string
+  currentPlaylist: string | null
   isLoadingPlaylists: boolean
   onClickPlaylist: (playlistId: string) => void
   loadPlaylists: () => Promise<void>
@@ -19,9 +19,9 @@ interface SpotifyState {
 
   // tracks
   tracks: Item[]
-  currentTrack: string
+  currentTrack: string | null
   isLoadingTracks: boolean
-  onClickTrack: (trackId: string) => void
+  onClickTrack: (trackId: string, trackFile: string) => void
   loadTracks: () => Promise<void>
 
   // playlist detail
@@ -31,6 +31,8 @@ interface SpotifyState {
 
   // player
   isPlaying: boolean
+  activeTrackFile: HTMLAudioElement | null
+  currentTime: number
   duration: number
   volume: number
   onPlay: () => void
@@ -42,7 +44,7 @@ export const useSpotifyStore = create<SpotifyState>((set, get) => {
   return {
     // playlists
     playlists: [],
-    currentPlaylist: '',
+    currentPlaylist: null,
     isLoadingPlaylists: true,
     onClickPlaylist: (playlistId: string) => {
       set({
@@ -84,16 +86,21 @@ export const useSpotifyStore = create<SpotifyState>((set, get) => {
 
     // tracks
     tracks: [],
-    currentTrack: '',
+    currentTrack: null,
     isLoadingTracks: true,
-    onClickTrack: (trackId: string) => {
+    onClickTrack: (trackId: string, trackFile: string) => {
+      const { loadTrackDetail, onPlay, onPause } = get()
+
+      onPause()
+
       set({
         currentTrack: trackId,
+        activeTrackFile: new Audio(trackFile),
       })
 
-      const { loadTrackDetail } = get()
-
       loadTrackDetail()
+
+      onPlay()
     },
     loadTracks: async () => {
       set({ isLoadingTracks: true })
@@ -111,33 +118,52 @@ export const useSpotifyStore = create<SpotifyState>((set, get) => {
     isLoadingTrackDetail: true,
     loadTrackDetail: async () => {
       set({ isLoadingTrackDetail: true })
-      const { currentTrack } = get()
+      const { currentTrack, activeTrackFile } = get()
       const response = await api(`/v1/tracks/${currentTrack}`)
       const track = await response.json()
       set({
         track,
         isLoadingPlaylistDetail: false,
+        currentTime: 0,
+        duration: activeTrackFile?.duration,
       })
     },
 
     // player
     isPlaying: false,
     duration: 0,
-    volume: 0,
+    currentTime: 0,
+    activeTrackFile: null,
+    volume: 0.05,
     onPlay() {
       set({
         isPlaying: true,
       })
+      const { activeTrackFile, volume } = get()
+
+      if (activeTrackFile) {
+        activeTrackFile.volume = volume
+      }
+
+      activeTrackFile?.play()
     },
     onPause() {
       set({
         isPlaying: false,
       })
+      const { activeTrackFile } = get()
+
+      activeTrackFile?.pause()
     },
     onChangeVolume(volume: number) {
       set({
         volume,
       })
+      const { activeTrackFile } = get()
+
+      if (activeTrackFile) {
+        activeTrackFile.volume = volume
+      }
     },
   }
 })

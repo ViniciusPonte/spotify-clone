@@ -18,23 +18,35 @@ const slider = tv({
   },
 })
 
-type SliderProps = VariantProps<typeof slider>
+interface SliderProps extends VariantProps<typeof slider> {
+  defaultValue?: number
+  max?: number
+  value: number[]
+  step?: number
+  onValueChange: (value: number[]) => void
+}
 
-export function Slider({ variant }: SliderProps) {
+export function Slider({
+  variant,
+  defaultValue = 0,
+  max = 100,
+  value,
+  step = 1,
+  onValueChange,
+}: SliderProps) {
   return (
     <SliderPrimitive.Root
       className={slider({ variant })}
-      defaultValue={[50]}
-      max={100}
-      step={1}
+      defaultValue={[defaultValue]}
+      max={max}
+      step={step}
+      value={value}
+      onValueChange={onValueChange}
     >
       <SliderPrimitive.Track className="grow relative rounded-full h-[4px] bg-spotifyGray500">
         <SliderPrimitive.Range className="absolute bg-white rounded-full h-full group-hover:bg-spotifyGreen" />
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb
-        className="none w-[11px] h-[11px] bg-white shadow rounded-xl group-hover:block outline-none"
-        aria-label="Volume"
-      />
+      <SliderPrimitive.Thumb className="none w-[11px] h-[11px] bg-white shadow rounded-xl group-hover:block outline-none" />
     </SliderPrimitive.Root>
   )
 }

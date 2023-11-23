@@ -14,6 +14,7 @@ interface SongItemProps {
   duration: number
   index: number
   id: string
+  trackFile: string
 }
 
 export function SongItem({
@@ -25,17 +26,18 @@ export function SongItem({
   duration,
   index,
   id,
+  trackFile,
 }: SongItemProps) {
-  const { onClickTrack, currentTrack, onPause, onPlay, isPlaying } =
-    useSpotifyStore((store) => {
+  const { onClickTrack, currentTrack, onPause, isPlaying } = useSpotifyStore(
+    (store) => {
       return {
         onClickTrack: store.onClickTrack,
         currentTrack: store.currentTrack,
-        onPlay: store.onPlay,
         onPause: store.onPause,
         isPlaying: store.isPlaying,
       }
-    })
+    },
+  )
 
   const [isHovered, setIsHovered] = useState(false)
 
@@ -46,8 +48,7 @@ export function SongItem({
   }
 
   function handleClickTrack() {
-    onClickTrack(id)
-    onPlay()
+    onClickTrack(id, trackFile)
   }
 
   function renderPause() {

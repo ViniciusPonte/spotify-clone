@@ -33,10 +33,13 @@ const config: Config = {
       },
       gridTemplateRows: {
         layout: '1fr 72px',
+        layoutWithoutMusic: '1fr',
       },
       maxHeight: {
         playlistSection: 'calc(100vh - 290px)',
+        playlistSectionWithoutMusic: 'calc(100vh - 290px + 72px)',
         songsList: 'calc(100vh - 90px)',
+        songsListWithoutMusic: 'calc(100vh - 90px + 72px)',
       },
       gradientColorStops: {
         spotifyGray700: '#121212',
