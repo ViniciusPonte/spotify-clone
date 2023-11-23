@@ -3,6 +3,7 @@ import { IPlaylistDetailResponse, Item, Track } from '@/interfaces/tracks'
 import { api } from '@/services/api'
 import { create } from 'zustand'
 import { IPlaylist } from '@/interfaces/playlist'
+import { RefObject } from 'react'
 
 interface SpotifyState {
   // playlists
@@ -35,9 +36,14 @@ interface SpotifyState {
   currentTime: number
   duration: number
   volume: number
+  animationRef: RefObject<number>
   onPlay: () => void
   onPause: () => void
   onChangeVolume: (volume: number) => void
+  animateWhilePlaying: () => void
+  onChangeCurrentTime: (time: number) => void
+  onClickNextTrack: () => void
+  onClickPreviousTrack: () => void
 }
 
 export const useSpotifyStore = create<SpotifyState>((set, get) => {
@@ -135,25 +141,36 @@ export const useSpotifyStore = create<SpotifyState>((set, get) => {
     currentTime: 0,
     activeTrackFile: null,
     volume: 0.05,
+    animationRef: {
+      current: null,
+    },
     onPlay() {
       set({
         isPlaying: true,
       })
-      const { activeTrackFile, volume } = get()
+      const { activeTrackFile, volume, animateWhilePlaying } = get()
 
       if (activeTrackFile) {
         activeTrackFile.volume = volume
       }
 
       activeTrackFile?.play()
+
+      set({
+        animationRef: { current: requestAnimationFrame(animateWhilePlaying) },
+      })
     },
     onPause() {
       set({
         isPlaying: false,
       })
-      const { activeTrackFile } = get()
+      const { activeTrackFile, animationRef } = get()
 
       activeTrackFile?.pause()
+
+      if (!isNaN(Number(animationRef.current))) {
+        cancelAnimationFrame(Number(animationRef.current))
+      }
     },
     onChangeVolume(volume: number) {
       set({
@@ -164,6 +181,49 @@ export const useSpotifyStore = create<SpotifyState>((set, get) => {
       if (activeTrackFile) {
         activeTrackFile.volume = volume
       }
+    },
+    animateWhilePlaying() {
+      const { activeTrackFile, animateWhilePlaying, onChangeCurrentTime } =
+        get()
+
+      if (activeTrackFile) {
+        onChangeCurrentTime(activeTrackFile?.currentTime)
+      }
+
+      set({
+        animationRef: { current: requestAnimationFrame(animateWhilePlaying) },
+      })
+    },
+    onChangeCurrentTime(time: number) {
+      set({
+        currentTime: time,
+      })
+    },
+    onClickNextTrack() {
+      const { tracks, currentTrack, onClickTrack } = get()
+
+      const activeTrackIndex = tracks.findIndex(
+        (track) => track.track.id === currentTrack,
+      )
+
+      const nextSongIndex = activeTrackIndex + 1
+
+      const nextSong = tracks[nextSongIndex]
+
+      onClickTrack(nextSong.track.id, nextSong.track.preview_url)
+    },
+    onClickPreviousTrack() {
+      const { tracks, currentTrack, onClickTrack } = get()
+
+      const activeTrackIndex = tracks.findIndex(
+        (track) => track.track.id === currentTrack,
+      )
+
+      const previousSongIndex = activeTrackIndex - 1
+
+      const previousSong = tracks[previousSongIndex]
+
+      onClickTrack(previousSong.track.id, previousSong.track.preview_url)
     },
   }
 })
