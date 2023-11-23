@@ -47,9 +47,9 @@ export function Controls() {
           onClick={onClickPreviousTrack}
         />
         {isPlaying ? (
-          <PauseIcon onClick={onPlay} />
+          <PauseIcon onClick={onPause} />
         ) : (
-          <PlayIcon onClick={onPause} />
+          <PlayIcon onClick={onPlay} />
         )}
         <SkipForward
           className="w-5 h-5 text-spotifyGray300 hover:text-white"
