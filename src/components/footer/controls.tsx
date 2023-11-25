@@ -1,9 +1,10 @@
-import { SkipBack, SkipForward } from 'lucide-react'
+import { Shuffle, SkipBack, SkipForward } from 'lucide-react'
 import { Slider } from '../base/slider'
 import { PlayIcon } from '../base/play-icon'
 import { useSpotifyStore } from '@/store'
 import { PauseIcon } from '../base/pause-icon'
 import { calculateTimeBasedOnSeconds } from '@/utils/calculateTimeBasedOnSeconds'
+import { useEffect } from 'react'
 
 export function Controls() {
   const {
@@ -16,6 +17,8 @@ export function Controls() {
     onChangeCurrentTime,
     onClickNextTrack,
     onClickPreviousTrack,
+    isRandom,
+    onChangeReproducingMode,
   } = useSpotifyStore((store) => {
     return {
       isPlaying: store.isPlaying,
@@ -27,6 +30,8 @@ export function Controls() {
       onChangeCurrentTime: store.onChangeCurrentTime,
       onClickNextTrack: store.onClickNextTrack,
       onClickPreviousTrack: store.onClickPreviousTrack,
+      isRandom: store.isRandom,
+      onChangeReproducingMode: store.onChangeReproducingMode,
     }
   })
 
@@ -39,11 +44,24 @@ export function Controls() {
 
   const formattedDuration = Math.floor(activeTrackFile?.duration ?? 0)
 
+  const isTrackEnded = activeTrackFile?.ended
+
+  useEffect(() => {
+    if (isTrackEnded) {
+      onClickNextTrack()
+    }
+  }, [isTrackEnded, onClickNextTrack])
+
   return (
     <div className="flex flex-col gap-2 items-center justify-center">
       <div className="flex items-center gap-5">
+        <Shuffle
+          data-active={isRandom}
+          className="w-4 h-4 cursor-pointer text-spotifyGray300 hover:text-white data-[active=true]:text-spotifyGreen data-[active=true]:hover:text-spotifyGreen"
+          onClick={onChangeReproducingMode}
+        />
         <SkipBack
-          className="w-5 h-5 text-spotifyGray300 hover:text-white"
+          className="w-5 h-5 cursor-pointer text-spotifyGray300 hover:text-white"
           onClick={onClickPreviousTrack}
         />
         {isPlaying ? (
@@ -52,9 +70,10 @@ export function Controls() {
           <PlayIcon onClick={onPlay} />
         )}
         <SkipForward
-          className="w-5 h-5 text-spotifyGray300 hover:text-white"
+          className="w-5 h-5 cursor-pointer text-spotifyGray300 hover:text-white"
           onClick={onClickNextTrack}
         />
+        <div />
       </div>
       <div className="flex items-center gap-3">
         <span className="text-[11px] text-spotifyGray300">
